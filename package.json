@@ -13,6 +13,7 @@
     "fb": "^1.1.1",
     "handlebars": "^4.0.5",
     "hapi": "^15.2.0",
+    "hapi-auth-cookie": "^6.1.1",
     "inert": "^4.0.2",
     "promise-mysql": "^2.0.0",
     "twitter": "^1.4.0",
