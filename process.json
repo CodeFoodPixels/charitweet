@@ -1,0 +1,16 @@
+{
+    "apps" : [{
+        "name": "index",
+        "script": "./index.js",
+        "watch": true,
+        "ignore_watch" : ["node_modules"],
+        "watch_options": {
+            "usePolling": true,
+            "interval": 100,
+            "followSymlinks": true
+        },
+        "env": {
+            "NODE_ENV": "development",
+        }
+    }]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "charitweet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fb": "^1.1.1",
+    "handlebars": "^4.0.5",
+    "hapi": "^15.2.0",
+    "passport": "^0.3.2",
+    "promise-mysql": "^2.0.0",
+    "twitter": "^1.4.0"
+  }
+}
