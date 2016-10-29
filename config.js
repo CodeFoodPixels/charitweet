@@ -7,5 +7,11 @@ module.exports = {
     facebook: {
         client_id: ``,
         client_secret: ``
+    },
+    mysql: {
+        host: ``,
+        user: ``,
+        password: ``,
+        database: ``
     }
 }
