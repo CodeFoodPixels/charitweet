@@ -1,0 +1,27 @@
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col">
+        <h3>Your campaigns</h3>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col">
+        <a href="/campaigns/new" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add Campaign</a>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col">
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        {{#each campaigns}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.supportercount}} supporters</td>
+                <td>
+                    <a href="/campaigns/edit/{{this.id}}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                        Edit Campaign
+                    </a>
+                </td>
+            </tr>
+        {{else}}
+            <tr>
+                <td>You have no campaigns</td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>

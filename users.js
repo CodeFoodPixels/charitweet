@@ -21,10 +21,12 @@ module.exports = {
         return connection.query('select * from users where facebook_id = ?', [facebookID]);
     },
     createUser: (user) => {
-        return connection.query('insert into users (name, twitter_id, facebook_id) values (?, ?, ?)', [
-            user.username,
+        return connection.query('insert into users (name, twitter_id, facebook_id, twitter_token, facebook_token) values (?, ?, ?, ?, ?)', [
+            user.name,
             user.twitter_id || '',
-            user.facebook_id || ''
+            user.facebook_id || '',
+            user.twitter_token || '',
+            user.facebook_token || ''
         ]);
     }
 }
