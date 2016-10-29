@@ -1,0 +1,24 @@
+.home-hero {
+    background-image: url(/image/home-hero.jpg);
+    background-size: cover;
+    background-position: center;
+    padding: 100px 50px;
+}
+
+.button--twitter {
+    background-color: rgb(29, 161, 242);
+    color: white;
+}
+
+.button--twitter:hover {
+    background-color: rgba(29, 161, 242, 0.5);
+}
+
+.button--facebook {
+    background-color: rgb(59, 89, 152);;
+    color: white;
+}
+
+.button--facebook:hover {
+    background-color: rgba(59, 89, 152, 0.5);
+}

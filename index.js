@@ -9,18 +9,27 @@ server.connection({
     port: 8080
 })
 
+server.register([
+    require('vision'),
+    require('inert')
+], (err) => {
+    server.views({
+        engines: {
+            hbs: require('handlebars')
+        },
+        relativeTo: __dirname,
+        path: `./views`,
+        layout: true,
+        layoutPath: `./views/layout/`
+    });
+
+    server.route(require('./routes.js'));
+});
+
 server.start((err) => {
     if (err) {
         throw err;
     }
 
     console.log(`Server running at: ${server.info.uri}`)
-});
-
-server.route({
-    method: 'GET',
-    path: '/',
-    handler: (request, reply) => {
-        reply('Hello hackmcr!');
-    }
 });

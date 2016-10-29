@@ -9,11 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bell": "^8.3.0",
     "fb": "^1.1.1",
     "handlebars": "^4.0.5",
     "hapi": "^15.2.0",
-    "passport": "^0.3.2",
+    "inert": "^4.0.2",
     "promise-mysql": "^2.0.0",
-    "twitter": "^1.4.0"
+    "twitter": "^1.4.0",
+    "vision": "^4.1.0"
   }
 }
