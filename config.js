@@ -8,6 +8,14 @@ module.exports = {
         client_id: ``,
         client_secret: ``
     },
+    twittersupporter: {
+        client_id: ``,
+        client_secret: ``
+    },
+    facebooksupporter: {
+        client_id: ``,
+        client_secret: ``
+    },
     mysql: {
         host: ``,
         user: ``,
