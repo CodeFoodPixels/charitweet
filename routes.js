@@ -65,7 +65,10 @@ module.exports = [{
     config: {
         auth: 'session',
         handler: (request, reply) => {
-            campaigns.getByUser(request.auth.credentials.id).then((rows) => {
+            campaigns.getByUser(request.auth.credentials.id).map((row) => {
+                row.end_date = moment(row.end_date).format('YYYY-MM-DD');
+                return row;
+            }).then((rows) => {
                 reply.view('campaigns', {campaigns: rows});
             });
         }
@@ -76,6 +79,8 @@ module.exports = [{
     config: {
         handler: (request, reply) => {
             campaigns.getById(request.params.id).then((rows) => {
+                const campaign = rows[0];
+                campaign.end_date = moment(campaign.end_date).format('YYYY-MM-DD');
                 reply.view('public-campaign', {campaign: rows[0]}, {layout: 'logged-out'});
             });
         }
@@ -128,7 +133,10 @@ module.exports = [{
             campaigns.add({
                 user: request.auth.credentials.id,
                 name: request.payload.name,
-                post: request.payload.post
+                post: request.payload.post,
+                day: request.payload.weekday,
+                time: request.payload.post_time,
+                end_date: request.payload.end_date
             }).then(() => {
                 reply.redirect('/campaigns');
             });

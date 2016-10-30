@@ -30,3 +30,10 @@
 .mdl-card {
     margin: 10px;
 }
+
+label {
+    color: rgb(103,58,183) !important;
+    font-size: 12px !important;
+    top: 4px !important;
+    visibility: visible !important;
+}
