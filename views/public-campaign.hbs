@@ -1,0 +1,24 @@
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col">
+        <h3>{{campaign.username}}'s campaign: {{campaign.campaignname}}</h3>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col">
+        <p>{{campaign.username}} needs your help spreading the word. Sign up with your social media accounts to allow the following message to be posted once a week:</p>
+        <div class="mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__supporting-text">
+                <h4>{{campaign.post}}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col">
+        <h4>{{campaign.username}} currently has {{campaign.supportercount}} supporters. Make it one more by adding your account</h3>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col">
+        <a href="/public-campaign/{{campaign.id}}/twitter" class="mdl-button mdl-js-button mdl-button--raised button--twitter">
+            <i class="fa fa-twitter" aria-hidden="true"></i> Twitter
+        </a>
+        <a href="/public-campaign/{{campaign.id}}/facebook" class="mdl-button mdl-js-button mdl-button--raised button--facebook">
+            <i class="fa fa-facebook" aria-hidden="true"></i> Facebook
+        </a>
+    </div>
+</div>

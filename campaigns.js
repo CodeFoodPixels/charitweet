@@ -15,7 +15,10 @@ mysql.createConnection({
 
 module.exports = {
     getByUser: (userId) => {
-        return connection.query('select id, name, count(cs.supporter_id) as supportercount from campaigns left join campaignsupporters as cs on cs.campaign_id = id where user = ? group by id;', [userId]);
+        return connection.query('select campaigns.id as campaignid, name, post, count(supporters.id) as supportercount from campaigns left join supporters on supporters.campaign = campaigns.id where user = ? group by campaigns.id;', [userId]);
+    },
+    getById: (id) => {
+        return connection.query('select campaigns.id, campaigns.name as campaignname, campaigns.post, users.name as username, count(supporters.id) as supportercount from campaigns left join supporters on supporters.campaign = campaigns.id left join users on users.id = campaigns.user where campaigns.id = ? group by id;', [id]);
     },
     add: (data) => {
         return connection.query('insert into campaigns (user, name, post) values (?, ?, ?)', [data.user, data.name, data.post]);

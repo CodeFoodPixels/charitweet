@@ -2,6 +2,7 @@
 
 const users = require(`./users.js`);
 const campaigns = require(`./campaigns.js`);
+const supporters = require(`./supporters.js`);
 
 module.exports = [{
     method: 'GET',
@@ -30,8 +31,50 @@ module.exports = [{
     config: {
         auth: 'session',
         handler: (request, reply) => {
+            console.log(request.auth.credentials.id);
             campaigns.getByUser(request.auth.credentials.id).then((rows) => {
+                console.log(rows)
                 reply.view('campaigns', {campaigns: rows});
+            });
+        }
+    }
+},{
+    method: 'GET',
+    path: '/public-campaign/{id}',
+    config: {
+        handler: (request, reply) => {
+            campaigns.getById(request.params.id).then((rows) => {
+                reply.view('public-campaign', {campaign: rows[0]}, {layout: 'logged-out'});
+            });
+        }
+    }
+},{
+    method: 'GET',
+    path: '/public-campaign/{id}/twitter',
+    config: {
+        handler: (request, reply) => {
+            supporters.add({
+                campaign: request.params.id,
+                twitter_token: ''
+            }).then(() => {
+                return campaigns.getById(request.params.id);
+            }).then((rows) => {
+                reply.view('public-campaign-supporter', {campaign: rows[0], account: 'Twitter'}, {layout: 'logged-out'});
+            });
+        }
+    }
+},{
+    method: 'GET',
+    path: '/public-campaign/{id}/facebook',
+    config: {
+        handler: (request, reply) => {
+            supporters.add({
+                campaign: request.params.id,
+                facebook_token: ''
+            }).then(() => {
+                return campaigns.getById(request.params.id);
+            }).then((rows) => {
+                reply.view('public-campaign-supporter', {campaign: rows[0], account: 'Facebook'}, {layout: 'logged-out'});
             });
         }
     }
@@ -101,7 +144,7 @@ module.exports = [{
                 return reply('Authentication failed: ' + request.auth.error.message);
             }
 
-            const profile = request.auth.credentials.profile;;
+            const profile = request.auth.credentials.profile;
 
             users.getByTwitterID(profile.id).then((rows) => {
                 if (rows.length === 0) {
@@ -141,7 +184,7 @@ module.exports = [{
             if (!request.auth.isAuthenticated) {
                 return reply('Authentication failed: ' + request.auth.error.message);
             }
-;
+
             const profile = request.auth.credentials.profile;
 
             users.getByFacebookID(profile.id).then((rows) => {
