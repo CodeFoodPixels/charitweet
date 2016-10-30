@@ -6,6 +6,7 @@ const posts = require(`./posts.js`);
 const supporters = require(`./supporters.js`);
 
 const moment = require('moment');
+const bluebird = require('bluebird');
 
 module.exports = [{
     method: 'GET',
@@ -25,11 +26,15 @@ module.exports = [{
     config: {
         auth: 'session',
         handler: (request, reply) => {
-            posts.getByUser(request.auth.credentials.id).map((row) => {
-                row.post_date = moment(row.post_date).format('YYYY-MM-DD');
-                return row;
-            }).then((rows) => {
-                reply.view('queue', {posts: rows});
+            bluebird.all([
+                posts.getByUser(request.auth.credentials.id).map((row) => {
+                    row.post_date = moment(row.post_date).format('YYYY-MM-DD');
+                    return row;
+                }),
+                users.getById(request.auth.credentials.id)
+            ]).then((data) => {
+                console.log(data);
+                reply.view('queue', {posts: data[0], user: data[1][0]});
             });
         }
     }
@@ -43,12 +48,34 @@ module.exports = [{
         }
     }
 },{
+    method: 'GET',
+    path: '/defaultpost',
+    config: {
+        auth: 'session',
+        handler: (request, reply) => {
+            reply.view('defaultpost');
+        }
+    }
+},{
+    method: 'POST',
+    path: '/defaultpost',
+    config: {
+        auth: 'session',
+        handler: (request, reply) => {
+            users.updateDefaultPost(request.auth.credentials.id, {
+                post: request.payload.post,
+                time: request.payload.post_time
+            }).then(() => {
+                reply.redirect('/queue');
+            });
+        }
+    }
+},{
     method: 'POST',
     path: '/queue/new',
     config: {
         auth: 'session',
         handler: (request, reply) => {
-            console.log(request.payload);
             posts.add({
                 user: request.auth.credentials.id,
                 message: request.payload.post,

@@ -20,6 +20,9 @@ module.exports = {
     getByFacebookID: (facebookID) => {
         return connection.query('select * from users where facebook_id = ?', [facebookID]);
     },
+    getById: (id) => {
+        return connection.query('select * from users where id = ?', [id]);
+    },
     createUser: (user) => {
         return connection.query('insert into users (name, twitter_id, facebook_id, twitter_token, facebook_token) values (?, ?, ?, ?, ?)', [
             user.name,
@@ -27,6 +30,13 @@ module.exports = {
             user.facebook_id || '',
             user.twitter_token || '',
             user.facebook_token || ''
+        ]);
+    },
+    updateDefaultPost: (userID, postData) => {
+        return connection.query('update users set default_post = ?, default_post_time = ? where id = ?', [
+            postData.post,
+            postData.time,
+            userID
         ]);
     }
 }

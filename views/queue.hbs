@@ -4,6 +4,22 @@
         <p>Here you can set up social media posts to be sent out at times that you specify. You can queue many posts in advance to make sure that you're always on top of it!</p>
     </div>
     <div class="mdl-cell mdl-cell--12-col">
+        <h4>Default Post</h4>
+        {{#if user.default_post}}
+            <p>If nothing has been posted or queued by the {{user.default_post_time}} on a day, the following will be posted to your accounts</p>
+            <div class="mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__supporting-text">
+                    <h4>{{user.default_post}}</h4>
+                </div>
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Edit Default Post</button>
+        {{else}}
+            <p>You can set a default post so that if you haven't queued or posted anything by a certain time, it will be posted to your accounts</p>
+            <a href="/defaultpost" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add Default Post</a>
+        {{/if}}
+    </div>
+    <div class="mdl-cell mdl-cell--12-col">
+        <h4>Queued Posts</h4>
         <a href="/queue/new" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Queue Post</a>
     </div>
     <div class="mdl-cell mdl-cell--12-col card-container">
