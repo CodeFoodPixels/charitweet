@@ -2,7 +2,10 @@
 
 const users = require(`./users.js`);
 const campaigns = require(`./campaigns.js`);
+const posts = require(`./posts.js`);
 const supporters = require(`./supporters.js`);
+
+const moment = require('moment');
 
 module.exports = [{
     method: 'GET',
@@ -22,7 +25,38 @@ module.exports = [{
     config: {
         auth: 'session',
         handler: (request, reply) => {
-            reply.view('queue');
+            posts.getByUser(request.auth.credentials.id).map((row) => {
+                row.post_date = moment(row.post_date).format('YYYY-MM-DD');
+                return row;
+            }).then((rows) => {
+                reply.view('queue', {posts: rows});
+            });
+        }
+    }
+},{
+    method: 'GET',
+    path: '/queue/new',
+    config: {
+        auth: 'session',
+        handler: (request, reply) => {
+            reply.view('new-post');
+        }
+    }
+},{
+    method: 'POST',
+    path: '/queue/new',
+    config: {
+        auth: 'session',
+        handler: (request, reply) => {
+            console.log(request.payload);
+            posts.add({
+                user: request.auth.credentials.id,
+                message: request.payload.post,
+                post_date: request.payload.post_date,
+                post_time: request.payload.post_time
+            }).then(() => {
+                reply.redirect('/queue');
+            });
         }
     }
 },{
@@ -31,9 +65,7 @@ module.exports = [{
     config: {
         auth: 'session',
         handler: (request, reply) => {
-            console.log(request.auth.credentials.id);
             campaigns.getByUser(request.auth.credentials.id).then((rows) => {
-                console.log(rows)
                 reply.view('campaigns', {campaigns: rows});
             });
         }

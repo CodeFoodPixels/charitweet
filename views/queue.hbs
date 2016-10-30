@@ -3,26 +3,20 @@
         <h3>Your social media post queue</h3>
     </div>
     <div class="mdl-cell mdl-cell--12-col">
-        <a href="/campaigns/new" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add Campaign</a>
+        <a href="/queue/new" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Queue Post</a>
     </div>
     <div class="mdl-cell mdl-cell--12-col">
-        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
-        {{#each campaigns}}
-            <tr>
-                <td>{{this.name}}</td>
-                <td>{{this.supportercount}} supporters</td>
-                <td><a href="/public-campaign/{{this.campaignid}}" target="_blank">Supporter page</a></td>
-                <td>
-                    <a href="/campaigns/edit/{{this.campaignid}}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                        Edit Campaign
-                    </a>
-                </td>
-            </tr>
+        {{#each posts}}
+            <div class="mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__supporting-text">
+                    <h4>{{this.message}}</h4>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    {{this.post_date}} {{this.post_time}}
+                </div>
+            </div>
         {{else}}
-            <tr>
-                <td>You have no campaigns</td>
-            </tr>
+            <p>You have no queued posts</p>
         {{/each}}
-        </table>
     </div>
 </div>
