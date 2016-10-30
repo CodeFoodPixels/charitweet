@@ -1,19 +1,21 @@
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--12-col">
         <h3>Your social media post queue</h3>
+        <p>Here you can set up social media posts to be sent out at times that you specify. You can queue many posts in advance to make sure that you're always on top of it!</p>
     </div>
     <div class="mdl-cell mdl-cell--12-col">
         <a href="/queue/new" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Queue Post</a>
     </div>
-    <div class="mdl-cell mdl-cell--12-col">
+    <div class="mdl-cell mdl-cell--12-col card-container">
         {{#each posts}}
             <div class="mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__supporting-text">
                     <h4>{{this.message}}</h4>
                 </div>
                 <div class="mdl-card__supporting-text">
-                    {{this.post_date}} {{this.post_time}}
+                    <p>Scheduled Time: {{this.post_date}} {{this.post_time}}</p>
                 </div>
+                <div class="mdl-card__actions"><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Edit Post</button></div>
             </div>
         {{else}}
             <p>You have no queued posts</p>

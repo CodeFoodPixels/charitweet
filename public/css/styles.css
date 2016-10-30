@@ -22,3 +22,11 @@
 .button--facebook:hover {
     background-color: rgba(59, 89, 152, 0.5);
 }
+
+.card-container {
+    display: flex;
+}
+
+.mdl-card {
+    margin: 10px;
+}
